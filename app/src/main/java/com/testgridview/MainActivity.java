@@ -3,6 +3,7 @@ package com.testgridview;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.GridView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     GridView gridView;
@@ -26,5 +27,11 @@ public class MainActivity extends AppCompatActivity {
         gridView = (GridView) findViewById(R.id.gridView);
         GridAdapter gridAdapter = new GridAdapter(this, values, images);
         gridView.setAdapter(gridAdapter);
+        gridAdapter.setOnClickListener(new GridAdapter.OnClickListener() {
+            @Override
+            public void onClicked(int position, String value) {
+                Toast.makeText(MainActivity.this, "Flag Clicked "+values[position], Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

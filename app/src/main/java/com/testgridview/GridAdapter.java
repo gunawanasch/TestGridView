@@ -11,20 +11,26 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 public class GridAdapter extends BaseAdapter {
-
-    Context context;
+    private Context context;
     private final String [] values;
     private final int [] images;
-    LayoutInflater layoutInflater;
+    private LayoutInflater layoutInflater;
+    private OnClickListener listener;
 
     public GridAdapter(Context context, String[] values, int[] images) {
         this.context = context;
         this.values = values;
         this.images = images;
+    }
+
+    public interface OnClickListener {
+        void onClicked(int position, String value);
+    }
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -56,9 +62,7 @@ public class GridAdapter extends BaseAdapter {
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(context, "Flag Clicked "+values[position], Toast.LENGTH_SHORT).show();
-
+                listener.onClicked(position, values[position]);
             }
         });
 
